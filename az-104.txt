@@ -1,0 +1,110 @@
+Ferran Vegas - arquitecto soluciones
+Curso administrador Azure.
+
+Curso de azure: https://virtualizadesdezero.com/
+
+7/2/2022
+
+Azure Active directory -> Autentica kerberos y autorizar.
+Atenticar Recursos locales y los modernos ()
+
+solo tengo una identidad, pero realmente tienes dos (active directory + azure AD)
+
+service account -> es una identidad apartir de 2012.
+
+Azure tenant -> es un AD de Azure - intancia de Azure (global admin -> permisos totales en el tenant, gestiona las usuario, etc.. no tiene coste y cambia a nivel de licencias que aplicas)
+Azure subscription -> para crear recursos es la suscription. entorno de facturación, permite crear recursos
+
+intune (endpoint manager) -> quieres gestionar todos mis dispositivos.
+automatizacion y logs.
+logs analitics servicio "pay as you go"
+
+
+azure AD -> solucion identidad. diseñada para comunicaciones http y https.
+Queries usados Rest API.
+
+No hay gerarquica. es una estructura plana.
+
+4 sabores de Active directory.
+free, microsoft 365 apps, P1 , P2 (Premium)
+
+seguridad moderna -> 
+office 365 -> proteger informacion sin tener que meterte en los equipos.
+con la P2 govierno identidades.
+
+MIM -> Microsoft identidad Manager para la gestion reset usuarios, etc..
+
+active directory on-prem y se sincronice en azure AD mediante connect.
+
+asignar localización de usuarios.
+ad connect (identity manager) provisionar identidades en la nube. software que te descargas.
+
+Los grupos de seguridad no se pueden restaurar.
+
+neuronaedgar@outlook.com
+Edg0000$8
+
+https://github.com/MicrosoftLearning/AZ-104-MicrosoftAzureAdministrator.git
+
+AZ-104-MicrosoftAzureAdministrator/Instructions/Labs/LAB_01-Manage_Azure_AD_Identities.md
+
+14/02/2022
+Gobierno
+pay as you go -> controlar subscription.
+residencia de la información por regiones.
+Coste regiones -> 
+Calidad de las comunicaciones.
+Flexibilidad y capacidad de escalado.
+Las IP estáticas son reservas de DHCP.
+Las soluciones PaaS vas vinculadas a la region y dan un SLA.
+SLA de Azure 99,95 una instancia.
+Han sacado ahora balanceadores globales.
+Cosmosdb bases de datos nosql.
+Todas las regiones tienen una region pareada -> replicar la informacio en otro datacenter.
+Lo que almaceno en azure es durable -> si hubiera un desastre habria una region replicada.
+
+Generar una subscription para deplegar un servicio (intune, etc..)
+- Enterprise agreement, se renegocia cada año. (Si dispones más de 25 servidores)
+- Resellers -> CSP una empresa hacen de intermediario.
+- Partner -> subscripcion o generan una solución tipo SaaS, PaaS, yo solo lo uso.
+- Personal free account -> cuenta gratuita de 30 dias.
+
+Tienes que convertir la subscrippcion a "pay as you go" para que te cobren
+
+- free appservices (1h)
+- Balanceadores en basics.
+
+No todas las subscripciones tienen cost analisis.
+Cost Management:
+- cost analysis
+- Cost alerts
+- Budgets
+- Advisor Recommendations.
+
+Tag:
+recursos classic -> estructura formato similar a AWS.
+Resource Manager -> resource group 
+etiqueta para costes. facturacion internas.
+facturacion por grupo de recursos.
+Tags para automatizar.
+Autoshutdown ->
+Automation account -> arrancar las maquinas a una hora concreta.
+  
+Ahorro costes:
+reduccion de costes hay que modernizar la aplicaciones.
+ventaja hibrida -> pago de la licencia con software asurance.
+Reserva instancia 1 año 41% y 3 años 62%. La licencia se mantienen.
+
+Para reducir los costes te debes transformar en un PaaS.
+Politica de inmobilidad es una mala politica.
+
+Management group son conjunto de subscripciones.
+
+
+
+
+
+ 
+
+
+ 
