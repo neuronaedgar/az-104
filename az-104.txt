@@ -98,12 +98,71 @@ Reserva instancia 1 año 41% y 3 años 62%. La licencia se mantienen.
 Para reducir los costes te debes transformar en un PaaS.
 Politica de inmobilidad es una mala politica.
 
-Management group son conjunto de subscripciones.
+Management group son conjunto de subscripciones. Organizaciones logicas de susbcripciones.
+Azure Policy "directivas" -> 
+- politicas que bloquean 
+- verificacion de cumplimiento y se ponen. 
+
+initiative "iniciativas" -> conjunto de politicas es una agrupacion y se aplican, asignan a:
+- management group
+- recursos.
+- etc..
+
+permisos y roles -> 
+
+Apartado de compliance
+
+ASR -> replicar la maquina entre regiones. Es caro, es mas barato snapshot y lo mueves y lo atachas.
+
+Es mas facil indicar los recursos que no quieres que se despliegue, pues indicar los que quieres puede  provocar que permites compute machine pero no las networks, etc...
 
 
+Politica habitual acceso basado en roles.
+role: owner - permiso para todo.
+"global admin" esta en el tenant, solo para crear usuarios.
 
+contributor -> todo lo del owner pero no puede hacer delagaciones, dar acceso a un recurso.
+Reader -> pueden leer todo.
 
+User access administrator -> puede asignar permisos pero no modificar. 
+Siempre al menor permiso.
 
+security Principal -> role definition, role asignment.
+
+role en Azure -> objeto maquina no de dentro servidor.
+
+Roles de:
+Azure active directory -> usuarios, grupos, licencias, etc.. permisos aplicaciones. Scope es el tenant.
+Azure RBAC de azure -> roles a subcripcion, recursos, manage group, etc..
+
+autenticacion y autorizacion lo gestiona azure AD.
+
+Global admin/User access admin solo hay uno y es dueño de la subcripcion.
+User access Administrator -> es lo que le falta el contributor.
+
+16/02/2022
+herramienta de administracion.
+Portal viejo "basic" 
+Azure Resource Manager -> ARM capa de gestion. interface para comunicarnos con azure.
+Microsoft crea portal nuevo para simplicar la gestión
+
+te permite agrupar los recursos en grupos.
+Log analitics -> Origen de logs. (Azure Monitor)
+SIEM Azure sentinel -> 
+Qradar IBM es top.
+Siem debe ser capaz de recoger los logs. Leer de Log analitics y analizarla.
+
+grupo recursos -> no se puede anidar y un recursos no pueden estar en 2 grupos de recursos diferentes.
+Se pueden mover recursos de un grupo a otro (casi todos) pero no renombrar una vez creado.
+Pueden tener recursos de multiples regiones.
+
+plantilla ARM -> tener infraestructura como codigo.
+
+Todos los recursos tienen un proveedor "Resource Provider"
+Resource Manager Lock -> delete (no te permite borrar) y read-only (ni borrar ni cambiar configuracion)
+
+ https://exam-files.com/Microsoft/AZ-104/
+ 
  
 
 
