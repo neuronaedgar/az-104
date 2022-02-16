@@ -42,7 +42,7 @@ ad connect (identity manager) provisionar identidades en la nube. software que t
 Los grupos de seguridad no se pueden restaurar.
 
 neuronaedgar@outlook.com
-Edg0000$8
+edg0000$8
 
 https://github.com/MicrosoftLearning/AZ-104-MicrosoftAzureAdministrator.git
 
@@ -163,7 +163,39 @@ Resource Manager Lock -> delete (no te permite borrar) y read-only (ni borrar ni
 
  https://exam-files.com/Microsoft/AZ-104/
  
+Resource Limits "quota"
+Problema para soluciones para escalar -> "scale set" 
  
+new-azresourceGroup -Name ppillo -location northeurope -> te crea un grupo de recursos.
+
+Cloud shell necesita de "storage account"
+
+get-azcontext
+get-azsubscrition
+set-azcontext -suscription "susciprcion" # para cambiar de suscription
+
+Referencias comandos CLI
+https://docs.microsoft.com/es-es/cli/azure/
+Referencias comandos Powershell
+https://docs.microsoft.com/es-es/powershell/azure/get-started-azureps?view=azps-7.2.0
+
+Para instalar el modulo de powershell de Azure en tu equipo.
+PS c:\xxxx > install-module AZ 
+PS c:\xxxx > import-module az
+PS c:\xxxx > connect-azaccount -TenantID "d527217bdegd7d17"
+PS c:\xxxx > get-azcontext 
+
+
+CBT Nuggets -> repositorio para dependencias.
+Visual Studio Code
+
+Para instalar el modulo de CLI de Azure en tu equipo
+https://docs.microsoft.com/es-es/cli/azure/install-azure-cli-windows?tabs=azure-cli
+
+
+
+
+
 
 
  
