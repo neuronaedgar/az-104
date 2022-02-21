@@ -185,12 +185,58 @@ PS c:\xxxx > import-module az
 PS c:\xxxx > connect-azaccount -TenantID "d527217bdegd7d17"
 PS c:\xxxx > get-azcontext 
 
-
 CBT Nuggets -> repositorio para dependencias.
 Visual Studio Code
 
 Para instalar el modulo de CLI de Azure en tu equipo
 https://docs.microsoft.com/es-es/cli/azure/install-azure-cli-windows?tabs=azure-cli
+
+Plantilla deploy.
+https://azurecharts.com/templates
+
+Para generar plantillas, cuando creas un recurso desde web puedes crear al finalizar una plantilla de la generada.
+https://azure.microsoft.com/en-us/resources/templates/
+
+21/02/2022 - networking
+
+Virtual Network -> representacion logica de la network. 
+n espacios de direcciones.
+los dispositivos se conectan a subnets.
+Azure toda las subredes están enrutadas entre si.
+Se pierden 5 IP dentro del subnet en Azure. Primera y ultima, la 1 para montar gateway, y 2 y 3 para azure.
+en vez 8 tienes 3
+en vez de 16 vas a tener 11 IP's.
+nsg -> seguridad
+Virtual Network es a nivel de region.
+
+10.3.1.0/29 -> red mas pequeña -> solo 5 dispositivos.
+
+network watcher agent -> pruebas de conectividad.
+Conection Trobleshoot -> 
+las ip privadas son dinamicas. Las puedes fijar si haces reserva en un DHCP que no manejas.
+Si se debe resdesplegar, etc.. que haga cambiar la mac de la tarjeta red tienes un problema que no podras tener esa IP nunca mas.
+No podeis desplegar servicio DHCP en Azure.
+Hay configuraciones y servicios que no puedes desplegar en Azure. PXC, ToIP, etc..
+
+Basicas -> no te permite meterlas segun que recursos fijas.
+
+Elementos accesibles a Internet.
+SKU estandard para IP staticas segun servicios como VPN, aplication Gateway
+
+NSG -> network Security Groups. especie de FW sin serlos. Permite limitar trafico que va a llegar a un recurso.
+Se puede asociar a un subnet o tarjeta red.
+Utiliza el FW de windows. Azure no regala el appliance.
+
+Servicios expuestos a internet no se utiliza NSG. Se debe utilizar Azure Firewall.
+NSG para traficos internos.
+
+Reducir al maximo el numero de NSG a utilizar.
+
+No mira la mas restrictivas, ni nada.. Mira ambas la de la subnet y la de la puerta de casa. 
+No se suman los NSG... se aplican por cascadas.
+
+No NSG en maquinas expuestas a internet.
+
 
 
 
