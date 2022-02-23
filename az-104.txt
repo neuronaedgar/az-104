@@ -237,8 +237,84 @@ No se suman los NSG... se aplican por cascadas.
 
 No NSG en maquinas expuestas a internet.
 
+Azure Firewall es un servicio caro para lo que hace. Firewall as a service - PaaS
+Servicio que escala muy bien.
+
+Estructura "Hub-Spoke" Network es una red en estrella.
+red hub FW, VPN, etc..
+
+Se debe meter en la Subnet especifica: AzureFirewallSubnet la sunet minima es /26 10.4.1.0/26 es la minima.
+
+Regla de enrutado que haga pasar por el Firewall.
+
+23/02/2022
+
+Servicio DNS 
+- Publico -> limitado en funcionalidades. 
+- Privado -> zonas privadas, para resoluciones de mi infra interna en azure.
+
+tenant "domainname.onmicrosoft.com"
+custom domain -> miempresa.com
+hay que verificar el dominio que sea tuyo.
+Se debe generar una entrada específica en el DNS publicos que sirven la zona para validar que es tuyo.
+
+Virtual network link -> si habilitas cuando arrancan las VM se registran automáticamente. Autoregistro con Active directory onprem.
+Registros automáticos se realizan con dhcp, con reservas, pero No se realiza si la cambias a mano.
+
+Comprobar comunicaciones mediante powershell:
+Test-NetConnection 234.222.345.345 ip -Port 3389
+
+siempre simplificar el numero de SNG a desplegar. 
+
+No salen con la IP publica que te asignan. Sales con una IP de Azure.
+
+IP forwarding -> para poder reenviar por la tarjeta de red.
+
+Para comunicar "Virtual Network" se debe hacer peering y se enrutan por defecto.
+Se puede realizar peering globales.
+Se puede realizar en otro tenant o otra subscripción, etc..
+
+La comunicacion es por la red de Azure, comunicaciones internas, mejor latencias, mas seguro que vpn, etc...
+No son transitivos.
+https://azure.microsoft.com/en-us/pricing/details/bandwidth/
+
+Se debe hacer en ambos sentido si se emplea TCP.
+
+Red de hub-spoke --> puedes enrutar los spoke en el vpn gateway del hub.
+
+Service Chaining -> red de Hub y red de spoke con la infraestructura.
+red hub como concentrador de comunicaciones.
+
+puedes utilizar el gateway remoto que tienes a lado.
+
+Amazon lo llaman "landing zone" una infra de Hub-Spoke es lo mas sencillo.
+
+Subnet "GatewaySubnet" 10.10.1.0/28 o /27 es la recomendacion para un red de gateway.
+Se debe llamar el segmento de red "GatewaySubnet" y no debes desplegar otros dispositivos en esa subnet o unicamente el vpn gateway o el express route.
+Express Route es una MPLS.
+VPN tienes latencias que te ofrece internet.
+Express Route es un proveedor y te provisiona una conexion privada que te garantiza latencias mas baja y velocidad.
 
 
+VirtualNetworkGateway --> un gateway VPN.
+- site2site 
+- Vnet-Vnet es lo mismos que los peering globales, mas caro y mas laatencia.
+- Point2site (user VPN)
+
+Local network gateway -> identificador del fw al que vamos a conectar para realizar la vpn. IP publica.
+Guias publicadas de los principales fabricante (juniper, cisco, etc..) para conectar la vpn.
+
+Políticas IPsec para donde enviar los paquetas.
+Politica de routas, se puede emplear BGP 
+
+El Maximo son 30 tuneles distintos S2S en cambio P2S hasta 5.000 users.
+Las Maquinas Virtuales tienen 1GB
+
+Solo se puede hacer resizing de la misma generacion.
+
+
+
+ 
 
 
 
