@@ -312,12 +312,114 @@ Las Maquinas Virtuales tienen 1GB
 
 Solo se puede hacer resizing de la misma generacion.
 
+28/02/2022
+Conectividad entre sitios
+
+es azure quien levanta la VPN.
+si se quiere hacer al reves se puede.
+hibridar nuestra plataforma implica dependencias y debemos extender y que esten disponibles.
+
+Baratas: GW Activo + GW Pasivo <---> onPrem VPN (Local network gateway)
+Local network gateway es un identificador, no tiene computacion.
+
+https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-vpn-devices
+
+ExpressRoute -> Pago microsoft, + trafico, + pago ISP las comunicaciones.
+latencias 20msg vpn's
+ExpressRoute MPLS (punto a punto) a 10msg
+
+Nos garantiza una tasa de trafico
+Permite acceder a office365, CRM, etc..
+
+capacidad layer3 con redundancia.
+Se hacen los expressRoute lo mas cerca de ti para no pagar de más.
+Con express route tambien debes definir los subred que se tienen abajo "onprem"
+
+ExpresRoute + vpn 
+Servicio estaria funcionando pero habría degradacion en caso de caida expressroute.
+
+
+Ferran recomienda siempre que seas una empresa mediana emplear una expressroute.
+
+Virtual Wan (aparecen hace un año)
+Una consola que nos permite gestionar todos nuestros elementos.
+
+Listar regiones: 
+(Get-AzLocation).Location
+Noth Europe
+West Europe
+
+Probar conexiones:
+Desde Powershell:
+Test-NetConnection -ComputerName 10.51.0.4 -Port 3389 -InformationLevel 'Detailed'
+
+System Route: rutas de azure.
+Rutas dentro subred.
+Rutas de la VM que estan en diferentes subnets dentro virtual network.
+La ruta por defecto para acceder a la intenet.
+Las VPN se enrutan de modo automática.
+Definir el espacio de ruta de on-prem gracias a la definición del Local network gateway.
+Los Peerings.
+y puedes gestionar y definir
+UDR User Defined Routes -> las definicion de las rutas que se define.
+NVA -> Network Virtual Appliance.
+Las UDR sobre escriben a las que hayan en el sistema.
+
+Las UDR van asociadas a las subnets. Se aplican a las subnets. Sino se aplican utilizan las de por defecto de sistema.
+
+Hub-Spoke
+se necesita un apliance para forwarding de trafico.
+no se puede reenviar trafico desde spoke a spoke directamente.
+
+Storage account -> servicio paas que se accede atraves de internet.
+Service Endpoints -> bloquear acceso a traves de internet pero permites acceso desde una virtual network.
+Estoy accesiendo a esos servicios a traves de servicios de azure.
+Ahorro costes, por transferencia de datos. Es estupido sacarlo a internet para meterlo en azure. No hay coste de trafico si se emplea un service endpoint.
+
+storage account -> almacenamiento de objetos.
+securizar -> all network implica publico.
+Proteger servicio -> 
+
+En Virtual Network:
+Service Endpoints -> keyvault, sql, etc... para permitir acceder al servicio desde Virtual Network.
+
+Private Link -> Relay acceso a servicios. Todas las comunicaciones son internas. Solo elementos internos de azure pueden llegar. A traves de vpn o express route puedes emplear un private link.
+
+Load Balancer -> Nivel 4 y Permite distribuir la carga entrante ediferentes backends.
+Son protocolos round robin, es capaz de hacer pruebas de salud y elimina backends no correctos.
+health probe
+
+Load balancer hace los Nat de las comunicaciones, la respuesta la devuelve el balanceador, no los host.
+capa 4 de transporte. No es SSL.
+
+Balanceador es mas barato que aplication gateway (para hacer ssl)
+Frontdoor es el frontal para SSL.
+La solución antigua era incausula.
+No se puede confundir balanceo con alta disponibilidad.
+allwayson -> un master.
+Balanceos -> servicio stateless. Las sesiones no pueden meter datos en el backend.
+
+SKU's de balanceador -> SKU no se puede modificar.
+Balanceador basic es gratis -> no vale para nada. (solo VM y scale set)
+Balanceador standard -> es el de producción.
+Solo es capaz balancear misma region.
+El balanceador global -> puede balanceador entre regiones (hay que validar)
+
+Backend pools -> elementos que hacen cosas.
+reglas de balanceo -> 
+
+
+
+
+
+
+
+
+
+
+
 
 
  
-
-
-
-
-
  
+
