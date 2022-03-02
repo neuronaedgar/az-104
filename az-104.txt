@@ -408,6 +408,79 @@ El balanceador global -> puede balanceador entre regiones (hay que validar)
 Backend pools -> elementos que hacen cosas.
 reglas de balanceo -> 
 
+Seguridad:
+https://cpl.thalesgroup.com/es/encryption/hardware-security-modules/network-hsms
+
+Balanceadores F5 pueden ver sesiones, cpu, memoria en las maquinas.
+
+Azure Application Gateway -> Es un balanceador trabaja en capa 7, capacidades extras pero solo trafico web (http, https)
+
+Listener tiene una reglas de balanceo.
+VM , scale set, webapp, etc.. cualquier IP publica y FQDN.
+
+Diferentes politicas de enrutado.
+Proteger ataque sql injection -> mediante un WAF.
+metodo enrutado:
+- Path-Base: Con diferente path "funcion de path". contoso.com/video contoso.com/images Diferentes backend con diferentes recursos.
+- Multi-Site: contoso.com y fabrikam.com 
+
+En el listener se puede añadir un WAF.
+
+DDOS -> Azure tiene uno por defecto.
+Primero FW y luego Aplication Gateway.
+
+Para enrutar los spokes se debe tener una appliance o un rras.
+En la red de hub no debe haber maquinas que no realicen tareas de red.
+
+
+Solo puedo balancear VM dentro de una Virtual Network. No puedo ver de otras VN.
+
+Las VM no tienen IP publicas para trabajar con ellas, es el balanceador quien la dispone y se la asigna a sus backends.
+
+WAF -> OWASP top 10.
+
+Azure Storage.
+- Discos 
+- Bases de datos (SQL y cosmosdb)
+
+Sharepoint online para almacenar ficheros. "mas caro pero mas eficiente"
+samba para almacenar elementos stateful.
+Storage account:
+Durable -> info no se pierde, pero no quiere decir que este disponible.
+Seguro -> se puede forzar que sea cifrada. https o samba 3.0. En transito y en reposo siempre esta cifrado.
+El disco esta almacenado siempre en una storage account. en reposo esta cifrado pero la info del disco no lo está.
+El disco por defecto no lo está, el vhd no esta cifrado.
+- Bitlocket
+- truecrypt
+
+scalable -> no hay posibilidad de limitar.
+managed -> Es gestionado, cambia de disco.
+accesible -> desde cualquier sitio.
+
+Que datos:
+storage para VM -> Solo VHD. no VHDX no entiende y puede no poder levantarlo. hay windows 2012 corriendo todavia. 
+Datos estructurados -> una tabla.
+Datos no estructurados -> cualquier dato.
+Mensajes. desacoplar servicios. 
+- service bash
+- queues
+
+diferencias entre Premium y standard.
+standard prima el almacenamiento -> puedes replicar contra otras regiones.
+Premium prima el rendimiento y no es capaz de hacer replicaciones contra otras regiones solo contra zonas misma region.
+
+Azure containers -> caja donde meto blobs (ficheros)
+sharepoint almacenar ficheros ofimáticos.
+almacenamiento en objeto -> sobre database.
+
+metadato en la base de datos y ficheros filesystem.
+Azure files -> share file mediante Samba 3.0. sacar info de los servidores. gestor de permisos no es lo mismo. No hay herramienta de auditoria. La gente pasa a sharepoint.
+
+Azure tables -> base de datos no relacional. muy económica. NoSQL
+Azure Queues -> desacoplar microservicios. algo sencillo. no garantiza orden entrega, dos elementos podría leer mismo elemento.
+
+Servicebash -> garantiza entrega, FIFO, solo se procesa una vez. Transacciones de ventas o bancarias.
+Se garantiza las transacciones.
 
 
 
@@ -418,8 +491,4 @@ reglas de balanceo ->
 
 
 
-
-
- 
- 
 
