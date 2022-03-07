@@ -482,13 +482,142 @@ Azure Queues -> desacoplar microservicios. algo sencillo. no garantiza orden ent
 Servicebash -> garantiza entrega, FIFO, solo se procesa una vez. Transacciones de ventas o bancarias.
 Se garantiza las transacciones.
 
+07/03/2022
+Durabilidad es pq Azure replica la info.
+storage v2 -> es todo lo más. Se puededn montar todo los servicios y todas las capacidades de replicacion y los dos modelos standard y premium.
+
+Microsoft piensa -> disco standard no quiere gatarse dinero y lo que le prima es la capacidad no las  prestaciones, por lo que permite replicacion local o regional.
+Premium quiere performance -> penalizacion de replicacion datos
+
+replicaciones sincrona -> penaliza performance.
+asincrona -> la consistencia de los datos puede no ser coherente.
+
+Todas las storage account estan encriptadas en rest mediante SSE.
+LRS -> redundancia local, tres copias de mis datos dentro de mi region y en una unica zona.
+ZRS -> redundancia zonal pero empleo las 3 zonas para replicacion.
+GRS -> Redundancia regional. se realiza una copia en una region fuera pero no tengo acceso a ella ni a que region replicar.
+La georeplicada, 3 copias en destino y 3 locales en una zona.
+RA-GRS -> solo lectura a la region remota. Replicacion es de un solo sentido.
+GZRS -> 3 copias distribuidas en las 3 zonas y 3 copias en region destina.
+RA-GZRS -> lo mismo pero con opcion de lectura.
+
+Siempre es la region pareda, no puedes elegir la region de sincronización.
+
+Proteger los endpoints -> service endpoints para asegurar los endpoints.
+la virtual network debe estar en la misma zona que la storage account.
+
+Azure emplea su propia solución de hiperconvergencia como la de nutanix.
+Blobs:
+- son objetos.
+almacenamiento basado en objetos.
+los sistemas operativos estan basados en almacenamiento mediante sectores.
+
+Almacenar un backup en una storage account.
+Azure backup -> bakea en un vault, solo mola si tienes windows, no una maquina linux. (ni lo ha hecho ni lo hará nunca)
+
+En una storage account se puede cifrar por lo que no es correcto realizar backups.
+archivado -> durante años.
+
+cuentas genericas igual los accesos publicos.
+una tonteria que pueda leer puedes generar problema de seguridad.
+
+delegar el acceso a la aplicación.
+ASA -> shared signal signature.
+acceso temporal de 2h, le doy acceso al usuario un tiempo y desacoplo la aplicacion.
+Si le das acceso a la aplicación, si son ficheros grandes cargo la aplicación.
+
+Si tienes el defender -> te explica si tienes una aplicacion mal desarrollada con vulnerabilidad. sql injection, etc..
+WAF -> los CVE's nuevos los puedes integrar.
+
+El permisos solo se vincula al fichero.
+
+Access Tiers: Performance que tiene ese objeto.
+- Hot -> Miles de peticiones
+- Cool -> puedes editar.
+- Archive -> para recuperarlo puede tarda 24h. Hay un rehidratado para agilizar pero sin SLA. 
+ciclo de vida a nivel container de mis ficheros -> imagenes en cool pues no se requiere rendimiento.
+
+Blob type: upload blobs
+
+Block blob -> lo hace bien.
+
+append blob -> objeto añado info al final.  logica
+
+
+Storage Security:
+- Storage Service Encryption.
+- Azure AD y RBAC para autenticar.
+- Client-side para encriptar en transito. SMB 3.0 cliente de Linux ya lo permite.
+- Azure disk encryption -> para encriptarlo fuera del storage account. bitlocket win y mcryto para linux.
+- Share Acess Signatures, SAS nadie ha pensado como gestionarlas.
+- Shared key. Las claves no se comparten con nadie.
+- acceso anonymous -> un error.
+
+SAS -> elemento permite delegar permisos. IP's, tiempo, tipo RA/RO, etc..
+
+Microsoft Azure storage explorer:
+
+estoy vendido pues no se que se realiza o que se hace.
+Puede revocar cambiando la clave con la que cifras.
+Eso afecta a todos los sas que has emitido.
+
+si te vas a container te permite montar un access policy que es parecido a un SAS
+Maximo 5 access policy en un container
+mismo problema pero esta vez puedes borrar la la access policy en vez de borrar la key que implica afecta a todas las SAS.
+
+no tienes estadisticas en Azure.
+
+Storage Service Encryption -> claves microsoft o las mias propias.
+almacenadas en un Key Vault o almcenada en on prem en un HSM.
+
+Best practices:
+
+Servicio de files -> servicio samba para mapeo de una unidad a un sistema operativo.
+migrar mi servidores de ficheros a la nuve.
+File server almacenan ofimática -> por lo que es mejor emplear sharepoint online.
+
+Azure files esta pensado para aplicaciones.
+Para aplicar acl's hay un trabajo intenso, por eso no es conveniente emplear Azure file para file server.
+
+Se aplican quotas.
+
+se puede hacer backup con azure backup y hacer un snapshot.
+
+No se hacen snapshot automáticos. Si se emplea azure backup no tiene sentido utilizar snapshots.
+
+Azure file Sync -> replico ficheros. 
+Es similar a distributing file system para replicar servicio de ficheros.
+
+storage Sync Services.
+
+storage Explorer -> herramienta para administrar storage account.
+
+Dos servicios: Importacion y Exportacion.
+
+Servicio Databox -> es el snowball de AWS.
+
+Az copy -> herramienta sencilla que equivale a un robocoy, las ventajas que un extremo puede ser un storage account
+
+https://docs.microsoft.com/en-us/azure/storage/common/storage-ref-azcopy-copy
+
+Azure Virtual Machine:
+menos carga administrativa pero menos control.
+IaaS -> Me tengo que adaptar a los ciclos de vida de azure y no dejará 2008 alguna vez. este es el problema de moverte a estas soluciones.
+Migro de on-prem a IaaS, lo que yo se.
+
+Si no se cumplen SLA, te dan creditos de azure.
+
+SQL como servicio es mas barato que como IaaS.
+No gestiono sistema operativo ni la base de datos.
+Mis aplicaciones deben actualizarse y seguir el mismo ciclo de vida que azure.
+Puedes pagar 60% y hacerlo ejecutar en una IaaS.
+
+"Esto funciona, no lo tocamos" -> hay que eliminar este concepto, adaptar a los tiempos.
+exchange online, sharepoints.
+google apps -> Software as service. 
+OWA -> 
 
 
 
-
-
-
-
-
-
+ 
 
