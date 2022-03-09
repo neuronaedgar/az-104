@@ -1,5 +1,9 @@
 Ferran Vegas - arquitecto soluciones
 Curso administrador Azure.
+Libro: https://skillpipe.com/#/account/login
+User: edgxx.yyyyyy.zzzres@gmail.com
+Passwd: el de neuronaedgar@outlook.com
+
 
 Curso de azure: https://virtualizadesdezero.com/
 
@@ -616,6 +620,8 @@ Puedes pagar 60% y hacerlo ejecutar en una IaaS.
 exchange online, sharepoints.
 google apps -> Software as service. 
 OWA -> 
+
+09/03/2022
 
 
 
