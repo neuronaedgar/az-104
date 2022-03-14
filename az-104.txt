@@ -623,6 +623,151 @@ OWA ->
 
 09/03/2022
 
+Sobredimensionamiento de VM cuando la capacidad es limitada.
+En el cloud no se debe reservar computacion.
+dimensiono 60% CPU sostenido y 70% de memoria. 
+Si me quedo corto escalado vertical.
+Paris es mas Barato que Marsella, y hay localizaciones que no disponen de todos los servicios.
+Si apago computacion dejo de pagar cpu y ram pero pago el storage.
+
+En cuanto a las versiones, se debería seleccionar la ultima. Siempre ultimas versiones Windows 2022.
+Siempre funcionalidad y luego costes.
+Has de validar que todas las funcionalidades que necesitas esté en la región.
+
+CDN: akamai, verizon y cdn standard de microsoft.
+
+Administracion publica certifico azure.
+
+Si se puede ampliar los discos del storage de las VM.
+
+Series A: 8 cpu de hace 10 años...
+Serie B: pare entornos preproduccion
+Serie D: maquinas mediocres, generalistas y minima para entorno produccion.
+Dc: proteccion de datos.
+
+ 
+ Disco c:\ sistema operativo.
+ Disco d:\ temporal  disco que borran. descargar software, etc..
+ Disco Datos f:\
+ cada maquina tiene un tipo de disco a añadir. 
+ Discos gestionados -> gestiona microsoft.
+ Disco no gestionado -> gestiona el usuario.
+
+¿Quien tiene el problema ?
+
+Los disco se alamacenan/están en los storage account.
+storage account es nuestra controladora. 
+cual es el limite --> 25 discos por storage account.
+Es recomendable tener discos gestionados para que los gestione microsoft.
+Discos standard hdd o sdd , no hay SLA.
+Disco premium -> hay un SLA 99,9 
+Disco Ultra
+
+No se puede acceder a la maquina hasta que hay una imagen.
+Las maquines tienen un agente que permiten apagar VM, NSG, etc..
+
+Microsoft indica que utilicemos las imagenes que tienen en azure, para que dispongas agentes.
+
+Los windowseros no son informáticos de elite.
+Partiendo que no te debes conectar a las maquinas, no deben tener ip publicas.
+Bastion te permite acceder a tus maquinas sin necesidad de tener IP publicas.
+Encapsula RDP con 443
+Es una VPN SSL
+
+Ciberacts
+
+Para bastion debes crear una virtual network donde este las maquinas a saltar.
+necesita una subnet para él. Debe nombrarse AzurebastionSubnet y debe tener minimo una subnet /26
+
+Identity -> usar identidades para recursos.
+Puedes asignar una identidad para poder acceder al SQL, etc... Managed Identity
+
+Importante zona horaria.
+Extensiones:
+Network watch
+Custom script extensions -> ejecutar script durante el despliegue de la VM.
+es equivalente a "runonce"
+
+No se dispone de una consola para interactuar con las maquinas.
+WinRM -> para administrar los servidores en azure. No emplear el RDP a las maquinas.
+
+La problematica es que hay muchas distribuciones y muchos sabores de linux.
+
+Avavility:
+Mantenimiento y caida.
+En on-prem evitamos las actualizaciones.
+Manteniiento reinicios, actualizacion, etc..
+Planificados -> cada Martes de inicio de mes cuando salen los parches.
+Live migration -> lo pasa a otro hipervisor.
+
+Unexpected Downtime -> caida por hardware.
+ 
+SLA calculator -> 
+SLA se calcula mensualmente -> 43 minutos cuando tienes discos premium 99,9
+Los sistemas se actualizan cuando tocan...
+Microsoft da solución/herramientas para alta disponibilidad, pero no por defecto.
+
+Estrategias -> Availability Sets 
+
+Fauld Domain -> hasta 3
+Update Domain -> hasta 20
+
+FaultDomain es un rack (cabina, corriente, etc ..independiente) dentro mismo Datacenter.
+UpdateDomain -> grupo de actualizacion. las actualizaciones y lo reinicion no se solapan en los UD.
+
+deployo los Webserver primero y azure me los va balanceando en los diferentes FD y UD y luego deployo los dos SQL.
+Hay que meter un LB antes de los Webservers y configurar alwayson cluster para balancear SQL.
+Se debe separar por funcionalidad en avavility sets.
+
+El mundo de las ideas es muy limitado, hay arquitecturas de referencias.
+
+Solo se pueden asociar las maquinas en un AS durante la creación, no te permite posteriormente, lo tienes que calzartelas y volverlas a crear.
+
+SLA 99,95 por lo que pasas a 21 minutos 54 sg.
+
+SLA de la solución queda por debajo del SLA mas bajo de todos los servicios.
+los SLA se multiplican.
+
+Availability Zone -> multiples datacenters independientes.
+SLA 99,99%
+y luego emplea FD y UD de forma interna, no debes preocuparte.
+
+https://azure.microsoft.com/es-es/support/legal/sla/summary/
+ 
+Se puede crear con un automation de forma automatizada el escalado vertical, pero hay un reinicio.
+
+Stateless:
+No puedo almacenar informacion en esa maquina.
+hacer un scale set en onprem no tiene ningun sentido porque conozco el tamaño máximo de mi hardware.
+Adaptar a la demanda al menor precio.
+condicionantes especificos -> "stateless"
+
+Scale Set -> puedes poner ip flotantes para conectarte a una maquina concreta dentro del scale set.
+desde 0 hasta 1000 instancias pueden escalar.
+
+Si son imagenes customizadas hasta 100.
+
+Spot instance -> precio maximo por la VM.
+   
+utilizar discos gestionados.
+autoescalados son reglas de monitorización.
+
+umbrales de CPU
+Escalo cuando superior a 80% sostenido 5 minutos.
+Reduzco cuando 60% sostenido 5 minutos.
+
+escalado funcionan monitorizando la CPU.
+
+CPU > 80% -> 10mi -> Cold down 5 min.(estabilizacion)
+
+1 maquina -> x5 Cuanto tado en adaptarme a una crecida de este tipo -> 55 minutos.
+
+a los 10 minutos 2VM a los 5 minutos (cold down) -> 3VM --> 5 min --> 10 min -> 4MV 5 + 10 5VM => 55 min
+Crecimiento sostenidos -> lineales.
+
+escalado programaticamente.
+añades la capa de prevision a la capa de crecimiento.
+
 
 
  
