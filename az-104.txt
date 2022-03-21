@@ -4,6 +4,9 @@ Libro: https://skillpipe.com/#/account/login
 User: edgxx.yyyyyy.zzzres@gmail.com
 Passwd: el de neuronaedgar@outlook.com
 
+Azure:
+neuronaedgar@outlook.com
+edg0000$8
 
 Curso de azure: https://virtualizadesdezero.com/
 
@@ -758,17 +761,83 @@ Reduzco cuando 60% sostenido 5 minutos.
 
 escalado funcionan monitorizando la CPU.
 
-CPU > 80% -> 10mi -> Cold down 5 min.(estabilizacion)
+CPU > 80% (average 10 minutos de que esten al 80%) -> 10mi -> Cooldown 5 min.(estabilizacion)
 
 1 maquina -> x5 Cuanto tado en adaptarme a una crecida de este tipo -> 55 minutos.
 
 a los 10 minutos 2VM a los 5 minutos (cold down) -> 3VM --> 5 min --> 10 min -> 4MV 5 + 10 5VM => 55 min
 Crecimiento sostenidos -> lineales.
 
+cooldown -> tiempo estabilización
+
 escalado programaticamente.
 añades la capa de prevision a la capa de crecimiento.
 
+21/03/2022
+
+scale set -> autoescalado horizontal.
+Lo normal es generar maquinas generadas por nosotros.
+
+Azure files -> para storage persistente para todas las VM del scale set.
+
+100 instancias si generas tu las imagenes a desplegar.
+Tienes que tener IP libres para escalar en tu subnet
+Solo puedes monitorizar contadores de VM. -> CPU,RAM -> basado en metricas.
+
+Basado en metricas cuando son crecimientos lineales.
+en crecimientos exponenciales, picos basado en numeros de instancias "programado"
+Puedes tener mas de una metrica y debes crear las 2 reglas, las de crecer y la de decreder.
+
+Las extensiones son agentes que puedes desplegar durante el despliegue o cuando estan ejecutandose.
+
+Custom Script extension -> permita lanzar un script que haga lo que tenga que hacer. Se ejecuta como usuario system.  
+hay una liminitacion de 90 minutos para que se ejecute. si pasa da un error. Es el equivalente de runonce, solo se ejecuta una vez.
+
+No poner password en los script, se emplea keyvault
+
+DSC -> Desired State Configuration. Funcion interesante que cada pasada fuerza esa configuración. cumple un baseline.+
+
+Automation Account -> cosas interesantes para admiistrar VM.
+inventario
+Gestion de cambios de VM.
+SDC para control de aplicaciones, etc..
+
+Module 9: Soluciones Serverless
+App Services Plans: (cualquier aplicacion que habla http)
+
+Nos asignan una capacidad de memoria y cpu y nos definen precio.
+Se puede compartir con diferentes aplicaciones
+Se define region y numero instancias y el tamaño y el precio.
+Servidor ISS o Apache y se ejecuta diferentes aplicaciones.
+solo me tengo que ocupar de picar el codigo.
+
+Tier free solo 2 horas de ejecución.
+hasta 10 aplicaciones diferentes.
+No deployment slot y sin scalado.
+
+ejecuta la ultima version de windows disponible, no te permite cambiar de S.O.
+tengo contadores interesantes para el scaling.
+Los frontales no van a saturar por CPU pues solo envia peticiones al backend y es quien utiliza la cpu.
+
+100 acu Azure compute unit -> 1 vCPU
+Familia A, cliente rata.
+
+Los ASE son los app services Plan del tipo isolate.
+
+http queue -> metrica buena para escalar las app Services.
+
+Siempre vas a poner aplication gateway por delante.
+
+.NET, node, php, java, python, html5 y tambien puede ejecutar contenedores.
+Las aplicaciones que no corren bien en un app services, se pueden meter en un contenedor y hacerlo funcionar en un app services
+
+app services están certificados. Podeis trabajar con PCI-dss compliance, 27001, etc..
+
+Application Insigths para monitorizacion de servidores windows.
+
+Bitnami -> 
+incapsula WAF cañero.
 
 
- 
+
 
