@@ -838,6 +838,134 @@ Application Insigths para monitorizacion de servidores windows.
 Bitnami -> 
 incapsula WAF cañero.
 
+23/03/2022
 
+Deployments slots a partir de standard.
 
+deployment slot en prod y tengo un segundo deployment slot en des.
+app service plan -> es el tipo de maquina. (standard, etc..
+
+Sobre linux la monitorizacio no esta activada.
+
+Si creas un deployment slot mas,  te abre otro app services para que defines otra version, otra aplicacion, etc...
+Tienes dos aplicaciones en un mismo app services.
+
+Canari es distribuir trafico en tanto % a preproducción.
+
+El Swap funciona bien siempre que no empleas cadenas de conexion, custom domain name (certificados), backup,  etc..
+Hay un apartado configuracion para emplear variables, etc..
+
+Hay que construir la aplicacion pensando en utilizar app service, para emplear librerias propias para emplear configuraciones como variables.
+
+Si quieres que tu aplicacion solo sea acceso interno, se debe deployar mediante un ASE un app service isolate.
+
+Application insights -> monitorizar las aplicaciones.
+
+containers Services.
+
+Container instances -> plataforma PaaS para ejecutar contenedores.
+
+container Group -> seria un docker compose.
+
+Container Registry -> registry de contenedores.
+
+AKS
+Azure monitor es quien monitoriza AKS
+kubelet -> agente que se encarga de hablar con el master.
+
+cordon & drain -> upgrade de AKS.
+
+AKS -> puede integrarse con Azure AD
+
+Virtual Kubelet -> te permite extender la plataforma a multiples plataformas, container instances, Azure Batch, k8s on-prem.
+
+Azure Front Door te permite poner pesos y te hace redireccionamiento de forma automática en caso de fallo de un entorno k8s.
+
+28/03/2022
+Azure backup -> herramienta de backup es buena para Windows. Hacen copias a un vault.
+MARS
+Todas las herramientas convo, veritas, etc.. todas hacen contra storage a account.
+Opciones almacenamiento -> vault o a un disco (azure backup server).
+trafico ilimitado
+data encryption en reposo y en trafico.
+Hacen copia 3 aplicaciones: SQL, Exchage, sharepoint (office 365)
+Retenciones a largo plazo (hasta 5 años)
+
+- Azure Fileshare
+Los backups de los storage account solo se puede copiar fileshare, no de un container.
+
+- Contra un un server (tanto Azure como desde on-prem)
+te descargas un agente -> Microsoft Azure Recovery Services Agent.
+Registrar el agente:
+- debes descargar la credenciales del vault.
+Maximo de 3 backups al dia.
+
+Para un par de servidores, tiene sentido pero cuando hay miles no tiene sentido.
+
+Data Protection:
+- Snapshot
+- azure backup -> copia ficheros, no hace falta pagar licencia, no copia cinta 
+DPM -> Pagar Licencia y puedes copiar cinta.
+- Azure Site Recovery - > ASR permite replicar maquinas a region remota -> site recovery de vmware.
+
+Hay en el marketplace todas las soluciones. Veem, Acronis, backupexes, etc..
+
+Instance Recovery - snapshot
+
+Solo puede backear en la misma region.
+Recovery Services ->
+
+Azure Backup Server (MABS) 
+
+Soft Delete -> retained for 14 dias -> delete 14 dias.
+
+Azure Site Recovery -> Migraciones a azure, entorno activo - pasivo
+Azure migrate -> servicio que han creado microsoft para migrar.
+
+RPO -> 0 gracias a que lo hace mediante un cache de datos.
+
+montar xxxx step-step -> documentacion microsoft.
+
+Traffic Manager -> redirige las peticiones a una region u otra.
+
+Plantilla funciona NorthEuropa (con la subcripcion free)
+Standard_D2ads_v5 
+
+az aks create --resource-group myResourceGroup --name enaAKSCluster --node-count 1 --enable-addons monitoring --generate-ssh-keys --nodepool-name enapool --node-vm-size Standard_D2ads_v5
+
+30/03/2022
+Azure monitor
+problematica es la que tiene cualquier tipo de servicio que tiene una plataforma.
+menos control tienes.
+Deciden cual son los contadores en funcion de la topologia que quieres monitorizar.
+scale set -> metrica y hace una respuesta automática en funcion de los contadores.
+problematica logs es grande es dificil de gestionar.
+Solucion muy extendida "splunk" -> recoge logs y analiza.
+Log analitics de microsoft hace lo mismo que splunk.
+Lenguaje Kusto para analizar los datos.
+https://docs.microsoft.com/es-es/azure/data-explorer/kusto/query/
+Alertas con acciones automáticas -> autoremediación.
+
+Puedo recoge metricas o Logs.
+insights -> parte de sacar conclusiones.
+
+Azure Alerts
+No se emplea. Se suele emplear las alertas del sistema de ticketing.
+
+reglas y accion groups 
+
+Toda la telemetria se envia a un workspace -> Log analitics workspaces
+cada workspace te ofrece: reginalizacion, scope, etc..
+datos de telemetrias y lo envias en logs analitics
+
+SCOM para recoger telemetria y luego para a Logs analitics
+
+Network watcher es un servicio regional.
+Te pinta topologia.
+Pinta la red del resource group
+
+IP flow verify -> ver si esta permitida una conexion
+NSG Diagnostic -> Si hay bloqueo en algun NSG.
+next hop -> tracert
+Packet capture -> capturar trafico en formato whireshark
 
