@@ -969,3 +969,7 @@ NSG Diagnostic -> Si hay bloqueo en algun NSG.
 next hop -> tracert
 Packet capture -> capturar trafico en formato whireshark
 
+
+04/04/2022
+Correo Mónica de la Fuente (Orientaciones laboral) monica.delafuente@pue.es
+
