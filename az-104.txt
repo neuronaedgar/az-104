@@ -6,7 +6,7 @@ Passwd: el de neuronaedgar@outlook.com
 
 Azure:
 neuronaedgar@outlook.com
-edg0000$8
+E...$8
 
 Curso de azure: https://virtualizadesdezero.com/
 
